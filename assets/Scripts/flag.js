@@ -66,7 +66,7 @@ cc.Class({
             return;
         }
         if (tool.hldSc) {
-            var pic = this.bigPic.getComponent(cc.Sprite);
+            let pic = this.bigPic.getComponent(cc.Sprite);
             pic.spriteFrame = this.bigPicCutting;
             this.cutting = true;
             return;
@@ -74,7 +74,7 @@ cc.Class({
     },
     getRedFlag2: function () {
         // 替换大图
-        var pic = this.bigPic.getComponent(cc.Sprite)
+        let pic = this.bigPic.getComponent(cc.Sprite)
         pic.spriteFrame = this.bigPicAfter;
         // 添加道具红旗，删除道具剪刀
         let test = this.tools.getComponent("Tools");
@@ -82,7 +82,7 @@ cc.Class({
         test.unHoldAll();
         test.removeScissors();
         // 替换小图
-        var sAfter = this.flagNode.getComponent(cc.Sprite)
+        let sAfter = this.flagNode.getComponent(cc.Sprite)
         sAfter.spriteFrame = this.flagAfter;
     },
 
