@@ -53,8 +53,8 @@ cc.Class({
 
     // 触发：获得剪刀
     testOnTouch: function () {
-        let test = this.tools.getComponent("Tools");
-        test.getScissors();
+        let tool = this.tools.getComponent("Tools");
+        tool.scissors.active = true;
     },
 
     // 剪下旗帜，获得旗帜
@@ -78,9 +78,9 @@ cc.Class({
         pic.spriteFrame = this.bigPicAfter;
         // 添加道具红旗，删除道具剪刀
         let test = this.tools.getComponent("Tools");
-        test.getRedFlag();
+        test.redFlag.active = true;
         test.unHoldAll();
-        test.removeScissors();
+        test.scissors.active = false;
         // 替换小图
         var sAfter = this.flagNode.getComponent(cc.Sprite)
         sAfter.spriteFrame = this.flagAfter;

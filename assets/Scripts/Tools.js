@@ -22,33 +22,33 @@ cc.Class({
             _children[i].active = false;
         }
         this.unHoldAll();
-        this.getScissors();
+        this.scissors.active = true;
     },
 
     // 获取道具相关
-    getScissors: function () {
-        this.scissors.active = true;
-    },
-    getRedFlag: function () {
-        this.redFlag.active = true;
-    },
-    getStar1: function () {
-        this.star1.active = true;
-    },
+    // 这些函数都不用写，调用的时候可以直接改这些参数
+    // getRedFlag: function () {
+    //     this.redFlag.active = true;
+    // },
+    // getStar1: function () {
+    //     this.star1.active = true;
+    // },
 
     // 使用道具相关
+    unHoldAll: function () {
+        this.hldSc = false;     //拿剪刀
+        this.hldRed = false;    //拿红旗
+        
+    },
     holdScissors: function () {
         this.unHoldAll();
         this.hldSc = true;
     },
-    unHoldAll: function () {
-        this.hldSc = false;
+    holdRedFlag: function () {
+        this.unHoldAll();
+        this.hldRed = true;
     },
 
-    // 删除道具
-    removeScissors: function () {
-        this.scissors.active = false;
-    },
 
 
     start() {

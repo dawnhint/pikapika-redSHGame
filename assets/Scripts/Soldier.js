@@ -62,7 +62,8 @@ cc.Class({
         starPic.spriteFrame = this.starPic2;
 
         // 士兵大图更换
-        // 待补充贴图
+        var LPic = this.soldierL.getComponent(cc.Sprite)
+        LPic.spriteFrame = this.soldierLAfter;
 
         // 士兵小图更换
         var touchedPic = this.changeTarget.getComponent(cc.Sprite)
@@ -72,7 +73,7 @@ cc.Class({
     onStar3: function () {
         // 获取星星到物品栏
         let func = this.tools.getComponent("Tools");
-        func.getStar1();
+        func.star1.active = true;
         // 使starArea的btn失效
         this.starArea.getComponent(cc.Button).interactable = false;
     },
