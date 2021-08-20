@@ -23,12 +23,12 @@ cc.Class({
 
     // LIFE-CYCLE CALLBACKS:
 
-    onLoad () {
+    onLoad() {
         this.btnCount = 0;
     },
 
-    btn: function() {
-        if(this.btnCount<=2) {
+    btn: function () {
+        if (this.btnCount <= 2) {
             var nextPic = this.pic.getComponent(cc.Sprite)
             nextPic.spriteFrame = this.old[this.btnCount];
             this.btnCount++;
@@ -38,7 +38,7 @@ cc.Class({
         }
     },
 
-    start () {
+    start() {
 
     },
 

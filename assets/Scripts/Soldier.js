@@ -33,12 +33,12 @@ cc.Class({
         tools: cc.Node,
         starArea: cc.Node,
         bookArea: cc.Node,
-        
+
     },
 
     // LIFE-CYCLE CALLBACKS:
 
-    onLoad () {
+    onLoad() {
         this.node.on('touchend', this.onTouch, this);
     },
 
@@ -54,10 +54,10 @@ cc.Class({
     },
 
     // 点击星星步骤（之后改成一步到位的动画）
-    onStar: function() {
+    onStar: function () {
         this.starPic.active = true;
     },
-    onStar2: function() {
+    onStar2: function () {
         var starPic = this.starPic.getComponent(cc.Sprite)
         starPic.spriteFrame = this.starPic2;
 
@@ -69,7 +69,7 @@ cc.Class({
         touchedPic.spriteFrame = this.Prop;
 
     },
-    onStar3: function() {
+    onStar3: function () {
         // 获取星星到物品栏
         let func = this.tools.getComponent("Tools");
         func.getStar1();
@@ -77,7 +77,7 @@ cc.Class({
         this.starArea.getComponent(cc.Button).interactable = false;
     },
 
-    onBook: function() {
+    onBook: function () {
         this.bookPic.active = true;
 
     },

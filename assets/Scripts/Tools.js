@@ -11,14 +11,14 @@ cc.Class({
 
     // LIFE-CYCLE CALLBACKS:
 
-    onLoad () {
+    onLoad() {
         this.initTools();
     },
 
     // 工具栏初始化，所有道具未激活
-    initTools: function() {
+    initTools: function () {
         var _children = this.tools.children;
-        for(i=0;i<_children.length; i++){
+        for (i = 0; i < _children.length; i++) {
             _children[i].active = false;
         }
         this.unHoldAll();
@@ -26,32 +26,32 @@ cc.Class({
     },
 
     // 获取道具相关
-    getScissors: function() {
+    getScissors: function () {
         this.scissors.active = true;
     },
-    getRedFlag: function() {
+    getRedFlag: function () {
         this.redFlag.active = true;
     },
-    getStar1: function() {
+    getStar1: function () {
         this.star1.active = true;
     },
 
     // 使用道具相关
-    holdScissors: function(){
+    holdScissors: function () {
         this.unHoldAll();
         this.hldSc = true;
     },
-    unHoldAll: function() {
+    unHoldAll: function () {
         this.hldSc = false;
     },
 
     // 删除道具
-    removeScissors: function() {
+    removeScissors: function () {
         this.scissors.active = false;
     },
 
 
-    start () {
+    start() {
 
     },
 
