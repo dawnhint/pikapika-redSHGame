@@ -58,7 +58,7 @@ cc.Class({
         this.starPic.active = true;
     },
     onStar2: function () {
-        var starPic = this.starPic.getComponent(cc.Sprite)
+        let starPic = this.starPic.getComponent(cc.Sprite)
         starPic.spriteFrame = this.starPic2;
 
         // 士兵大图更换
@@ -66,7 +66,7 @@ cc.Class({
         LPic.spriteFrame = this.soldierLAfter;
 
         // 士兵小图更换
-        var touchedPic = this.changeTarget.getComponent(cc.Sprite)
+        let touchedPic = this.changeTarget.getComponent(cc.Sprite)
         touchedPic.spriteFrame = this.Prop;
 
     },

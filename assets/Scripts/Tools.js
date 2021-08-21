@@ -18,7 +18,7 @@ cc.Class({
 
     // 工具栏初始化，所有道具未激活
     initTools: function () {
-        var _children = this.tools.children;
+        let _children = this.tools.children;
         for (i = 0; i < _children.length; i++) {
             _children[i].active = false;
         }
