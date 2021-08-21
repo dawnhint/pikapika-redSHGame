@@ -80,7 +80,7 @@ cc.Class({
         let test = this.tools.getComponent("Tools");
         test.redFlag.active = true;
         test.unHoldAll();
-        test.scissors.active = false;
+        test.scissors.destroy();
         // 替换小图
         var sAfter = this.flagNode.getComponent(cc.Sprite)
         sAfter.spriteFrame = this.flagAfter;

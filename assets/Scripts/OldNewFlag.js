@@ -9,6 +9,11 @@ cc.Class({
     extends: cc.Component,
 
     properties: {
+        // 工具
+        gongJuRen: {
+            default: null,
+            type: cc.Node,
+        },
         tools: {
             default: null,
             type: cc.Node,
@@ -43,6 +48,7 @@ cc.Class({
     },
 
     btnOld: function () {
+        this.gongJuRen.getComponent("GameManager").clearCanvasM();
         if (this.btnCount <= 3) {
             this.old[this.btnCount].active = false;
             this.old[this.btnCount+1].active = true;
@@ -59,7 +65,11 @@ cc.Class({
             this.addFlag();
         } else {
             let tools = this.tools.getComponent("Tools");
-
+            if(tools.hldStar1) {
+                this.new[1].active = true;
+            } else if (tools.hldStar2) {
+                this.new[2].active = true;
+            }
         }
     },
     
@@ -67,7 +77,7 @@ cc.Class({
         let tools = this.tools.getComponent("Tools");
         if (tools.hldRed) {
            this.new[0].active = true;
-           tools.redFlag.active = false;
+           tools.redFlag.destroy();
         }
     },
 
