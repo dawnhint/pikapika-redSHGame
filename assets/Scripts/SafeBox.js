@@ -21,7 +21,28 @@ cc.Class({
         tools: {
             default: null,
             type: cc.Node,
+        },
+        btnCode: {
+            default: [],
+            type: cc.Node,
+        },
+        audioEnter: {
+            default: null,
+            type: cc.AudioClip,
+        },
+        audioWrong: {
+            default: null,
+            type: cc.AudioClip,
+        },
+        audioOpen: {
+            default: null,
+            type: cc.AudioClip,
+        },
+        audioDing: {
+            default: null,
+            type: cc.AudioClip,
         }
+
     },
 
     // LIFE-CYCLE CALLBACKS:
@@ -29,28 +50,66 @@ cc.Class({
     onLoad () {
         this.safeBoxL.active = false;
         this.star.active = false;
+        this.codeJunk();
     },
 
     btn: function () {
         this.gongJuRen.getComponent("GameManager").clearCanvasM();
         if(this.safeBoxL.isValid) {
             this.safeBoxL.active = true;
-        } else {
+            // 清零
+            this.enteringNum = [];
+            this.codeCnt = 0;
+        } else if (this.canGet) {
+            this.canGet = false;
+            cc.audioEngine.play(this.audioDing, false, 0.5);  
             let tools = this.tools.getComponent("Tools");
             tools.star2.active = true;
         }
     },
 
-    enterPassward () {
-        // 输入密码还没做
-        // 后期要测试手机上的点击区域是否足够，不够调整图片大小
-        // 先做成点击开锁
-        var anim = this.safeBoxL.getComponent(cc.Animation);
-        anim.play('openSafeBox');
-        // 动画播放停止时执行？
-        anim.on('finished', this.onFinished, this);
+    codeJunk:function () {
+        for ( i=0; i<9;i++) {
+            ((i)=>{
+                this.btnCode[i].on('touchend', function ( event ) {
+                    cc.audioEngine.play(this.audioEnter,false,0.2);
+                    this.enteringNum.push(i+1);
+                    this.codeCnt++;
+                    console.log(this.enteringNum);
+                    // 输完密码
+                    if(this.codeCnt>=4) {
+                        // 判断密码
+                        if (this.enteringNum.join() == "1,9,2,1") {
+                            this.open();
+                        } else {
+                            this.scheduleOnce(function(){ 
+                                cc.audioEngine.play(this.audioWrong,false,0.3);
+                             },0.4);
+                        }
+                        this.enteringNum = [];
+                        this.codeCnt = 0;
+                    }
+                }.bind(this));                  
+            })(i)
+            // cpy教的写法 ↑ （看不懂55）
+            // 我原来的写法 ↓
+            // this.btnCode[i].on('touchend', function ( event ) {
+            //     let a = event.target.name;   // 非常之暴力
+            //     this.enteringNum.push(a);
+            //     console.log(this.enteringNum);
+            // }.bind(this));                  
+        }
     },
 
+    // 打开箱子
+    open () {
+        var anim = this.safeBoxL.getComponent(cc.Animation);
+        anim.play('openSafeBox');
+        cc.audioEngine.play(this.audioOpen,false,4);
+        // 动画播放停止时执行
+        anim.on('finished', this.onFinished, this);
+        this.canGet = true;
+    },
     onFinished () {
         // 销毁节点
         this.safeBoxL.destroy();
@@ -59,6 +118,7 @@ cc.Class({
         pic.spriteFrame = this.picAfter;
         this.star.active = true;
     },
+
     
 
     start () {

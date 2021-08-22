@@ -1,0 +1,37 @@
+{
+  "__type__": "cc.AnimationClip",
+  "_name": "cutFlag",
+  "_objFlags": 0,
+  "_native": "",
+  "_duration": 0.5166666666666667,
+  "sample": 60,
+  "speed": 1,
+  "wrapMode": 1,
+  "curveData": {
+    "comps": {
+      "cc.Sprite": {
+        "spriteFrame": [
+          {
+            "frame": 0,
+            "value": {
+              "__uuid__": "a5f02f7f-9f11-4a93-92e9-d27c35deb8cf"
+            }
+          },
+          {
+            "frame": 0.13333333333333333,
+            "value": {
+              "__uuid__": "c40281e2-06aa-4476-8412-0fd78948e41f"
+            }
+          },
+          {
+            "frame": 0.5,
+            "value": {
+              "__uuid__": "ab32b0cf-b114-4604-b646-785575d9102d"
+            }
+          }
+        ]
+      }
+    }
+  },
+  "events": []
+}

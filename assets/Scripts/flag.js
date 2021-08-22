@@ -33,7 +33,9 @@ cc.Class({
         tools: {
             default: null,
             type: cc.Node,
-        }
+        },
+
+        audioCut: cc.AudioClip,
 
     },
 
@@ -58,32 +60,20 @@ cc.Class({
     },
 
     // 剪下旗帜，获得旗帜
-    // 现在分两步，后期改成动画
-    getRedFlag1: function () {
+    getRedFlag: function () {
         let tool = this.tools.getComponent("Tools");
-        if (this.cutting) {
-            this.getRedFlag2();
-            return;
-        }
         if (tool.hldSc) {
-            let pic = this.bigPic.getComponent(cc.Sprite);
-            pic.spriteFrame = this.bigPicCutting;
-            this.cutting = true;
-            return;
+            var anim = this.bigPic.getComponent(cc.Animation);
+            anim.play('cutFlag');
+            cc.audioEngine.play(this.audioCut,false,0.7);
+            let test = this.tools.getComponent("Tools");
+            test.redFlag.active = true;
+            test.unHoldAll();
+            test.scissors.destroy();
+            // 替换小图
+            let sAfter = this.flagNode.getComponent(cc.Sprite)
+            sAfter.spriteFrame = this.flagAfter;
         }
-    },
-    getRedFlag2: function () {
-        // 替换大图
-        let pic = this.bigPic.getComponent(cc.Sprite)
-        pic.spriteFrame = this.bigPicAfter;
-        // 添加道具红旗，删除道具剪刀
-        let test = this.tools.getComponent("Tools");
-        test.redFlag.active = true;
-        test.unHoldAll();
-        test.scissors.destroy();
-        // 替换小图
-        let sAfter = this.flagNode.getComponent(cc.Sprite)
-        sAfter.spriteFrame = this.flagAfter;
     },
 
 });

@@ -35,6 +35,11 @@ cc.Class({
         new: {
             default:[],
             type:cc.Node,
+        },
+        audioDing: cc.AudioClip,
+        audioTear: {
+            default: null,
+            type:cc.AudioClip,
         }
 
     },
@@ -50,6 +55,13 @@ cc.Class({
     btnOld: function () {
         this.gongJuRen.getComponent("GameManager").clearCanvasM();
         if (this.btnCount <= 3) {
+            if(this.btnCount==0){
+                let tools = this.tools.getComponent("Tools");
+                tools.nails.active = true;
+                cc.audioEngine.play(this.audioDing, false, 0.7);  
+            } else {
+                cc.audioEngine.play(this.audioTear, false, 1);  
+            }
             this.old[this.btnCount].active = false;
             this.old[this.btnCount+1].active = true;
             this.btnCount++;
@@ -57,6 +69,7 @@ cc.Class({
         } else if (this.btnCount = 4) {
             this.newFlag.active = true;
             this.oldFlag.active = false;
+            cc.audioEngine.play(this.audioTear, false, 1);
         }
     },
 
@@ -66,9 +79,13 @@ cc.Class({
         } else {
             let tools = this.tools.getComponent("Tools");
             if(tools.hldStar1) {
+                cc.audioEngine.play(this.audioDing, false, 0.7);  
                 this.new[1].active = true;
+                tools.star1.destroy();
             } else if (tools.hldStar2) {
+                cc.audioEngine.play(this.audioDing, false, 0.7);  
                 this.new[2].active = true;
+                tools.star2.destroy();
             }
         }
     },
@@ -77,7 +94,9 @@ cc.Class({
         let tools = this.tools.getComponent("Tools");
         if (tools.hldRed) {
            this.new[0].active = true;
+           tools.nails.destroy();
            tools.redFlag.destroy();
+           cc.audioEngine.play(this.audioDing, false, 0.7);  
         }
     },
 

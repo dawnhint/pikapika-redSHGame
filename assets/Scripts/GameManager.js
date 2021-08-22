@@ -15,6 +15,11 @@ cc.Class({
 
         // tools
         tools: cc.Node,
+
+        doorAudio: {
+            default: null,
+            type: cc.AudioClip,
+        }
     },
 
     // LIFE-CYCLE CALLBACKS:
@@ -40,7 +45,6 @@ cc.Class({
     },
     // roomMiddle
     clearCanvasM: function () {
-        // flag和soldier的子节点的active变成false
         var _children = this.calendar.children;
         for (i = 0; i < _children.length; i++) {
             _children[i].active = false;
@@ -57,11 +61,15 @@ cc.Class({
         this.outDoor.active = false;
         this.roomM.active = true;
         this.clearCanvas();
+        // 这个声音太长了，换掉
+        // cc.audioEngine.play(this.doorAudio, false, 0.8);
     },
     // 点击出门
     outOfDoor: function () {
         this.outDoor.active = true;
         this.roomM.active = false;
+        this.clearCanvasM();
+        // cc.audioEngine.play(this.doorAudio, false, 0.8);
         // 同时禁用左右btn
     },
 

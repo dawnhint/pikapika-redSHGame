@@ -21,9 +21,8 @@ cc.Class({
             default: null,
             type: cc.Node,
         },
-        starPic: cc.Node,
-        starPic2: cc.SpriteFrame,
         bookPic: cc.Node,
+        starL: cc.Node,
         // 大头
         soldierL: cc.Node,
         soldierLAfter: {
@@ -33,13 +32,13 @@ cc.Class({
         tools: cc.Node,
         starArea: cc.Node,
         bookArea: cc.Node,
-
+        audioDing: cc.AudioClip,
     },
 
     // LIFE-CYCLE CALLBACKS:
 
     onLoad() {
-        this.node.on('touchend', this.onTouch, this);
+        // this.node.on('touchend', this.onTouch, this);
     },
 
     onTouch: function () {
@@ -48,34 +47,38 @@ cc.Class({
         gongJu.clearCanvas();
         // 清除子节点的图片
         this.bookPic.active = false;
-        this.starPic.active = false;
         // 激活士兵大图
         this.soldierL.active = true;
     },
 
     // 点击星星步骤（之后改成一步到位的动画）
-    onStar: function () {
-        this.starPic.active = true;
+    onStar: function() {
+        this.starL.active = true;
     },
-    onStar2: function () {
-        let starPic = this.starPic.getComponent(cc.Sprite)
-        starPic.spriteFrame = this.starPic2;
 
+    onStarBig: function () {
+        // 放段动画
+        var anim = this.starL.getComponent(cc.Animation);
+        anim.play('getStarBig');
+        // 动画播放停止时执行
+        anim.on('finished', this.gotStar, this);
+        cc.audioEngine.play(this.audioDing, false, 2);  
+    },
+
+    gotStar: function() {
         // 士兵大图更换
-        var LPic = this.soldierL.getComponent(cc.Sprite)
+        let LPic = this.soldierL.getComponent(cc.Sprite)
         LPic.spriteFrame = this.soldierLAfter;
-
         // 士兵小图更换
         let touchedPic = this.changeTarget.getComponent(cc.Sprite)
         touchedPic.spriteFrame = this.Prop;
-
-    },
-    onStar3: function () {
         // 获取星星到物品栏
         let func = this.tools.getComponent("Tools");
         func.star1.active = true;
         // 使starArea的btn失效
         this.starArea.getComponent(cc.Button).interactable = false;
+        // 销毁大星星节点
+        this.starL.destroy();
     },
 
     onBook: function () {

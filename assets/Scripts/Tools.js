@@ -6,6 +6,7 @@ cc.Class({
         tools: cc.Node,
         redFlag: cc.Node,
         scissors: cc.Node,
+        nails: cc.Node,
         star1: cc.Node,
         star2: cc.Node,
     },
