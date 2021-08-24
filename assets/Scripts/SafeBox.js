@@ -60,44 +60,61 @@ cc.Class({
             // 清零
             this.enteringNum = [];
             this.codeCnt = 0;
-        } else if (this.canGet) {
-            this.canGet = false;
-            cc.audioEngine.play(this.audioDing, false, 0.5);  
-            let tools = this.tools.getComponent("Tools");
-            tools.star2.active = true;
         }
     },
 
+    btnStar: function () {
+        cc.audioEngine.play(this.audioDing, false, 0.5);  
+        let tools = this.tools.getComponent("Tools");
+        this.star.active = false;
+        tools.star2.active = true;
+    },
+
     codeJunk:function () {
-        for ( i=0; i<9;i++) {
-            ((i)=>{
-                this.btnCode[i].on('touchend', function ( event ) {
-                    cc.audioEngine.play(this.audioEnter,false,0.2);
-                    this.enteringNum.push(i+1);
-                    this.codeCnt++;
-                    console.log(this.enteringNum);
-                    // 输完密码
-                    if(this.codeCnt>=4) {
-                        // 判断密码
-                        if (this.enteringNum.join() == "1,9,2,1") {
-                            this.open();
-                        } else {
-                            this.scheduleOnce(function(){ 
-                                cc.audioEngine.play(this.audioWrong,false,0.3);
-                             },0.4);
-                        }
-                        this.enteringNum = [];
-                        this.codeCnt = 0;
-                    }
-                }.bind(this));                  
-            })(i)
+        for ( let n=0; n<9;n++) {
+            // ((i)=>{
+            //     this.btnCode[i].on('touchend', function ( event ) {
+            //         cc.audioEngine.play(this.audioEnter,false,0.2);
+            //         this.enteringNum.push(i+1);
+            //         this.codeCnt++;
+            //         // 输完密码
+            //         if(this.codeCnt>=4) {
+            //             // 判断密码
+            //             if (this.enteringNum.join() == "1,9,2,1") {
+            //                 this.open();
+            //             } else {
+            //                 this.scheduleOnce(function(){ 
+            //                     cc.audioEngine.play(this.audioWrong,false,0.3);
+            //                  },0.4);
+            //             }
+            //             this.enteringNum = [];
+            //             this.codeCnt = 0;
+            //         }
+            //     }.bind(this));                  
+            // })(i)
             // cpy教的写法 ↑ （看不懂55）
             // 我原来的写法 ↓
-            // this.btnCode[i].on('touchend', function ( event ) {
-            //     let a = event.target.name;   // 非常之暴力
-            //     this.enteringNum.push(a);
-            //     console.log(this.enteringNum);
-            // }.bind(this));                  
+            this.btnCode[n].on('touchend', function ( event ) {
+                    cc.audioEngine.play(this.audioEnter,false,0.2);
+                    this.codeCnt++;
+                let a = event.target.name;   // 非常之暴力
+                this.enteringNum.push(a);
+                // 输完密码
+                if(this.codeCnt>=4) {
+                    // 判断密码
+                    if (this.enteringNum.join() == "1,9,2,1") {
+                        this.open();
+                    } else {
+                        this.scheduleOnce(function(){ 
+                            let animWrong = this.safeBoxL.getComponent(cc.Animation);
+                            animWrong.play('openSafeBoxWrong');
+                            cc.audioEngine.play(this.audioWrong,false,0.3);
+                        },0.3);
+                    }
+                    this.enteringNum = [];
+                    this.codeCnt = 0;
+                }
+            }.bind(this));                  
         }
     },
 

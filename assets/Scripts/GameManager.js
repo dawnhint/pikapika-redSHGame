@@ -25,6 +25,13 @@ cc.Class({
     // LIFE-CYCLE CALLBACKS:
 
     onLoad() {
+        // 切换横屏 （web适用
+        let frameSize = cc.view.getFrameSize()
+        cc.view.setOrientation(cc.macro.ORIENTATION_LANDSCAPE)
+        if (frameSize.height > frameSize.width)
+        cc.view.setFrameSize(frameSize.height, frameSize.width)
+        // this.canvas.designResolution = cc.size(1920, 1080);
+
         this.outDoor.active = false;
         this.roomM.active = true;
     },
@@ -35,22 +42,22 @@ cc.Class({
     clearCanvas: function () {
         // flag和soldier的子节点的active变成false
         var _children = this.flag.children;
-        for (i = 0; i < _children.length; i++) {
+        for (let i = 0; i < _children.length; i++) {
             _children[i].active = false;
         }
         var _children = this.soldier.children;
-        for (i = 0; i < _children.length; i++) {
+        for (let i = 0; i < _children.length; i++) {
             _children[i].active = false;
         }
     },
     // roomMiddle
     clearCanvasM: function () {
         var _children = this.calendar.children;
-        for (i = 0; i < _children.length; i++) {
+        for (let i = 0; i < _children.length; i++) {
             _children[i].active = false;
         }
         var _children = this.safeBox.children;
-        for (i = 0; i < _children.length; i++) {
+        for (let i = 0; i < _children.length; i++) {
             _children[i].active = false;
         }
     },
