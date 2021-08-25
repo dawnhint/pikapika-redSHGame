@@ -1,3 +1,4 @@
+// 主要负责：场景切换、将场景恢复成初始状态
 
 cc.Class({
     extends: cc.Component,
@@ -6,12 +7,15 @@ cc.Class({
         // rooms
         outDoor: cc.Node,
         roomM: cc.Node,
+        roomL: cc.Node,
 
         // furniture should be smaller
         flag: cc.Node,
         soldier: cc.Node,
         calendar: cc.Node,
         safeBox: cc.Node,
+        board: cc.Node,
+        desk: cc.Node,
 
         // tools
         tools: cc.Node,
@@ -32,8 +36,8 @@ cc.Class({
         cc.view.setFrameSize(frameSize.height, frameSize.width)
         // this.canvas.designResolution = cc.size(1920, 1080);
 
-        this.outDoor.active = false;
-        this.roomM.active = true;
+        // this.outDoor.active = false;
+        // this.roomM.active = true;
     },
 
 
@@ -56,28 +60,46 @@ cc.Class({
         for (let i = 0; i < _children.length; i++) {
             _children[i].active = false;
         }
-        var _children = this.safeBox.children;
+        var _children2 = this.safeBox.children;
+        if(_children2[0].name == "locked") {
+            _children2[0].active = false;
+        }
+
+    },
+    clearCanvasL: function () {
+        let _children = this.board.children;
         for (let i = 0; i < _children.length; i++) {
             _children[i].active = false;
         }
+        let deskL = cc.find("deskL",this.desk);
+        deskL.active = false;
     },
 
-    // 跳转
-    // 点击进门
+    // 场景切换
+    // 进门，进房间M
     intoDoor: function () {
         this.outDoor.active = false;
+        this.roomL.active = false;
         this.roomM.active = true;
         this.clearCanvas();
         // 这个声音太长了，换掉
         // cc.audioEngine.play(this.doorAudio, false, 0.8);
     },
-    // 点击出门
+    // 出门
     outOfDoor: function () {
         this.outDoor.active = true;
         this.roomM.active = false;
+        this.roomL.active = false;
         this.clearCanvasM();
         // cc.audioEngine.play(this.doorAudio, false, 0.8);
-        // 同时禁用左右btn
+    },
+    // 进房间L
+    toRoomLeft: function () {
+        this.outDoor.active = false;
+        this.roomM.active = false;
+        this.roomL.active = true;
+        this.clearCanvasM();
+        // cc.audioEngine.play(this.doorAudio, false, 0.8);
     },
 
 

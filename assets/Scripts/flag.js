@@ -53,12 +53,6 @@ cc.Class({
         this.bigPic.active = true;
     },
 
-    // 触发：获得剪刀
-    testOnTouch: function () {
-        let tool = this.tools.getComponent("Tools");
-        tool.scissors.active = true;
-    },
-
     // 剪下旗帜，获得旗帜
     getRedFlag: function () {
         let tool = this.tools.getComponent("Tools");

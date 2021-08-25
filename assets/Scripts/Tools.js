@@ -12,6 +12,8 @@ cc.Class({
         nails: cc.Node,
         star1: cc.Node,
         star2: cc.Node,
+        star3: cc.Node,
+        key: cc.Node,
 
     },
 
@@ -28,21 +30,17 @@ cc.Class({
             _children[i].active = false;
         }
         this.unHoldAll();
-        this.scissors.active = true;
+        this.key.active = true;
     },
-
-    // 获取道具相关
-    // 这些函数都不用写，调用的时候可以直接改值
-    // getRedFlag: function () {
-    //     this.redFlag.active = true;
-    // },
 
     // 使用道具相关
     unHoldAll: function () {
         this.hldSc = false;     //拿剪刀
         this.hldRed = false;    //拿红旗
         this.hldStar1 = false;  //拿五角星
-        this.hldStar2 = false;  
+        this.hldStar2 = false; 
+        this.hldStar3 = false; 
+        this.hldKey = false;    //拿钥匙 
         let _children = this.tools.children;
         for (let i = 0; i < _children.length; i++) {
             let bg = cc.find("tool_bg",_children[i]);
@@ -77,6 +75,19 @@ cc.Class({
         this.unHoldAll();
         this.hldStar2= true;
         let bg = cc.find("tool_bg",this.star2);
+        bg.active = true;
+    },
+    holdStar3: function () {
+        this.unHoldAll();
+        this.hldStar3= true;
+        console.log('1');
+        let bg = cc.find("tool_bg",this.star3);
+        bg.active = true;
+    },
+    holdKey: function () {
+        this.unHoldAll();
+        this.hldKey= true;
+        let bg = cc.find("tool_bg",this.key);
         bg.active = true;
     },
 

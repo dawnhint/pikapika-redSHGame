@@ -86,6 +86,10 @@ cc.Class({
                 cc.audioEngine.play(this.audioDing, false, 0.7);  
                 this.new[2].active = true;
                 tools.star2.destroy();
+            } else if (tolls.hldStar3) {
+                cc.audioEngine.play(this.audioDing, false, 0.7);  
+                this.new[3].active = true;
+                tools.star3.destroy();
             }
         }
     },

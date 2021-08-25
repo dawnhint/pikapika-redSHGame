@@ -54,8 +54,8 @@ cc.Class({
     },
 
     btn: function () {
-        this.gongJuRen.getComponent("GameManager").clearCanvasM();
         if(this.safeBoxL.isValid) {
+            this.gongJuRen.getComponent("GameManager").clearCanvasM();
             this.safeBoxL.active = true;
             // 清零
             this.enteringNum = [];
