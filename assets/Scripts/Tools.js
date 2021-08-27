@@ -80,7 +80,6 @@ cc.Class({
     holdStar3: function () {
         this.unHoldAll();
         this.hldStar3= true;
-        console.log('1');
         let bg = cc.find("tool_bg",this.star3);
         bg.active = true;
     },

@@ -3,7 +3,7 @@
   "_name": "openSafeBox",
   "_objFlags": 0,
   "_native": "",
-  "_duration": 0.43333333333333335,
+  "_duration": 0.5166666666666667,
   "sample": 60,
   "speed": 1,
   "wrapMode": 1,
@@ -24,7 +24,7 @@
             }
           },
           {
-            "frame": 0.4166666666666667,
+            "frame": 0.5,
             "value": {
               "__uuid__": "c93d6f0e-604c-4028-b71c-7ac2476ed01f"
             }

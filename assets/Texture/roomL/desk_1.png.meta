@@ -1,6 +1,6 @@
 {
   "ver": "2.3.5",
-  "uuid": "f7a38892-1ccc-422d-b043-139e6bd8e4e6",
+  "uuid": "1b42245e-246b-46ff-be2a-e837ba2494f7",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "bilinear",
@@ -8,13 +8,13 @@
   "genMipmaps": false,
   "packable": true,
   "width": 705,
-  "height": 491,
+  "height": 553,
   "platformSettings": {},
   "subMetas": {
     "desk_1": {
       "ver": "1.0.4",
-      "uuid": "302d0456-c949-4f44-a80d-8d366346ad87",
-      "rawTextureUuid": "f7a38892-1ccc-422d-b043-139e6bd8e4e6",
+      "uuid": "923fd778-1e0e-4e9d-87b2-ba5e17e63c84",
+      "rawTextureUuid": "1b42245e-246b-46ff-be2a-e837ba2494f7",
       "trimType": "auto",
       "trimThreshold": 1,
       "rotated": false,
