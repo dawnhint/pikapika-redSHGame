@@ -7,11 +7,17 @@ cc.Class({
         article3: cc.Node,
         article6: cc.Node,
         sudoku: cc.Node,
+        star5: cc.Node,
+
+        tools: cc.Node,
 
         gongJuRen: {
             default: null,
             type: cc.Node,
         },
+
+        audio_get: cc.AudioClip,
+
     },
 
     // LIFE-CYCLE CALLBACKS:
@@ -42,6 +48,13 @@ cc.Class({
     btn3: function () {
         this.sudoku.active = true;
     },
+
+    getStar5: function () {
+        cc.audioEngine.play(this.audio_get,false,0.7);
+        this.star5.destroy();
+        let tools = this.tools.getComponent("Tools");
+        tools.star5.active = true;
+    }
 
 
     // update (dt) {},

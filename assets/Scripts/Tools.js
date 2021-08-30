@@ -13,7 +13,10 @@ cc.Class({
         star1: cc.Node,
         star2: cc.Node,
         star3: cc.Node,
+        star4: cc.Node,
+        star5: cc.Node,
         key: cc.Node,
+        wood: cc.Node,
 
     },
 
@@ -30,7 +33,6 @@ cc.Class({
             _children[i].active = false;
         }
         this.unHoldAll();
-        this.key.active = true;
     },
 
     // 使用道具相关
@@ -40,7 +42,10 @@ cc.Class({
         this.hldStar1 = false;  //拿五角星
         this.hldStar2 = false; 
         this.hldStar3 = false; 
+        this.hldStar4 = false;
+        this.hldStar5 = false;
         this.hldKey = false;    //拿钥匙 
+        this.hldWood = false;   //拿木头
         let _children = this.tools.children;
         for (let i = 0; i < _children.length; i++) {
             let bg = cc.find("tool_bg",_children[i]);
@@ -83,10 +88,28 @@ cc.Class({
         let bg = cc.find("tool_bg",this.star3);
         bg.active = true;
     },
+    holdStar4: function () {
+        this.unHoldAll();
+        this.hldStar4= true;
+        let bg = cc.find("tool_bg",this.star4);
+        bg.active = true;
+    },
+    holdStar5: function () {
+        this.unHoldAll();
+        this.hldStar5= true;
+        let bg = cc.find("tool_bg",this.star5);
+        bg.active = true;
+    },
     holdKey: function () {
         this.unHoldAll();
         this.hldKey= true;
         let bg = cc.find("tool_bg",this.key);
+        bg.active = true;
+    },
+    holdWood: function () {
+        this.unHoldAll();
+        this.hldWood= true;
+        let bg = cc.find("tool_bg",this.wood);
         bg.active = true;
     },
 

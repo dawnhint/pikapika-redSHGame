@@ -40,7 +40,9 @@ cc.Class({
         audioTear: {
             default: null,
             type:cc.AudioClip,
-        }
+        },
+
+        hint: cc.Node,
 
     },
 
@@ -50,6 +52,7 @@ cc.Class({
 
     onLoad() {
         this.btnCount = 0;
+        this.starCount = 0;
     },
 
     btnOld: function () {
@@ -82,15 +85,33 @@ cc.Class({
                 cc.audioEngine.play(this.audioDing, false, 0.7);  
                 this.new[1].active = true;
                 tools.star1.destroy();
+                this.starCount++;
             } else if (tools.hldStar2) {
                 cc.audioEngine.play(this.audioDing, false, 0.7);  
                 this.new[2].active = true;
                 tools.star2.destroy();
+                this.starCount++;
             } else if (tools.hldStar3) {
                 cc.audioEngine.play(this.audioDing, false, 0.7);  
                 this.new[3].active = true;
                 tools.star3.destroy();
+                this.starCount++;
+            } else if (tools.hldStar4) {
+                cc.audioEngine.play(this.audioDing, false, 0.7);  
+                this.new[4].active = true;
+                tools.star4.destroy();
+                this.starCount++;
+            } else if (tools.hldStar5) {
+                cc.audioEngine.play(this.audioDing, false, 0.7);  
+                this.new[5].active = true;
+                tools.star5.destroy();
+                this.starCount++;
             }
+        }
+        // checkFinished
+        if(this.starCount == 5) {
+            console.log('Congratulations!');
+            this.hint.active = true;
         }
     },
     

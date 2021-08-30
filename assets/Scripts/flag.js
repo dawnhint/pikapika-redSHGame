@@ -57,7 +57,7 @@ cc.Class({
     getRedFlag: function () {
         let tool = this.tools.getComponent("Tools");
         if (tool.hldSc) {
-            var anim = this.bigPic.getComponent(cc.Animation);
+            let anim = this.bigPic.getComponent(cc.Animation);
             anim.play('cutFlag');
             cc.audioEngine.play(this.audioCut,false,0.7);
             let test = this.tools.getComponent("Tools");
