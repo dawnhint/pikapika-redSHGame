@@ -81,36 +81,36 @@ cc.Class({
             this.addFlag();
         } else {
             let tools = this.tools.getComponent("Tools");
-            if(tools.hldStar1) {
+            if(tools.hldStar1 && tools.star1.isValid) {
                 cc.audioEngine.play(this.audioDing, false, 0.7);  
                 this.new[1].active = true;
                 tools.star1.destroy();
-                this.starCount++;
-            } else if (tools.hldStar2) {
+            } else if (tools.hldStar2 && tools.star2.isValid) {
                 cc.audioEngine.play(this.audioDing, false, 0.7);  
                 this.new[2].active = true;
                 tools.star2.destroy();
-                this.starCount++;
-            } else if (tools.hldStar3) {
+            } else if (tools.hldStar3 && tools.star3.isValid) {
                 cc.audioEngine.play(this.audioDing, false, 0.7);  
                 this.new[3].active = true;
                 tools.star3.destroy();
-                this.starCount++;
-            } else if (tools.hldStar4) {
+            } else if (tools.hldStar4 && tools.star4.isValid) {
                 cc.audioEngine.play(this.audioDing, false, 0.7);  
                 this.new[4].active = true;
                 tools.star4.destroy();
-                this.starCount++;
-            } else if (tools.hldStar5) {
+            } else if (tools.hldStar5 && tools.star5.isValid) {
                 cc.audioEngine.play(this.audioDing, false, 0.7);  
                 this.new[5].active = true;
                 tools.star5.destroy();
-                this.starCount++;
             }
         }
         // checkFinished
-        if(this.starCount == 5) {
-            console.log('Congratulations!');
+        this.starsCheck = true;
+        for ( let i = 0; i<5; i++) {
+            if(!this.new[i+1].active){
+                this.starsCheck = false;
+            }
+        }
+        if(this.starsCheck) {
             this.hint.active = true;
         }
     },

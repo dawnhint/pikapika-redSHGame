@@ -4,6 +4,8 @@ cc.Class({
     extends: cc.Component,
 
     properties: {
+        canvas: cc.Node,
+
         // rooms
         outDoor: cc.Node,
         roomM: cc.Node,
@@ -33,13 +35,19 @@ cc.Class({
 
     onLoad() {
         // 切换横屏 （web适用
-        let frameSize = cc.view.getFrameSize()
-        cc.view.setOrientation(cc.macro.ORIENTATION_LANDSCAPE)
-        if (frameSize.height > frameSize.width)
-        cc.view.setFrameSize(frameSize.height, frameSize.width)
-        // this.canvas.designResolution = cc.size(1920, 1080);
-
+        cc.view.setOrientation(cc.macro.ORIENTATION_LANDSCAPE);
+        let frameSize = cc.view.getFrameSize();
+        let height = frameSize.height;
+        let width = frameSize.width;
+        if (height > width) {
+            cc.view.setFrameSize(height, width)
+        }
         this.intoDoor();
+
+        cc.director.preloadScene("collection", function () {
+            console.log("Next scene collection preloaded");
+        });
+
     },
 
 
@@ -95,7 +103,6 @@ cc.Class({
         this.roomR.active = false;
         this.roomM.active = true;
         this.clearCanvasM();
-        // cc.audioEngine.play(this.doorAudio, false, 0.3);
     },
     // 出门
     outOfDoor: function () {
@@ -104,7 +111,9 @@ cc.Class({
         this.roomL.active = false;
         this.roomR.active = false;
         this.clearCanvas();
-        // cc.audioEngine.play(this.doorAudio, false, 0.3);
+    },
+    playDoorMusic: function () {
+        cc.audioEngine.play(this.doorAudio, false, 0.1);
     },
     // 进房间L
     toRoomLeft: function () {
@@ -123,7 +132,9 @@ cc.Class({
         this.clearCanvasR();
     },
 
-
+    btnCollection: function () {
+        cc.director.loadScene("collection");
+    },
 
     start() {
 

@@ -22,7 +22,6 @@ cc.Class({
         audioWindow2: cc.AudioClip,
         audio_bird: cc.AudioClip,
         audio_ding: cc.AudioClip,
-        audio_paper: cc.AudioClip,
     },
 
     onLoad () {
@@ -66,7 +65,6 @@ cc.Class({
     tableOnClick() {
         this.gongJuRen.getComponent("GameManager").clearCanvasR();
         this.article7L.active = true;
-        cc.audioEngine.play(this.audio_paper, false, 0.8);
     },
 
     start () {
