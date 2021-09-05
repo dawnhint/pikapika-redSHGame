@@ -40,6 +40,9 @@ cc.Class({
         audio_wood: cc.AudioClip,
         audio_book: cc.AudioClip,
         audio_knock: cc.AudioClip,
+
+        collection: cc.Node,
+        info: cc.Label,
     },
 
     // LIFE-CYCLE CALLBACKS:
@@ -47,6 +50,7 @@ cc.Class({
     onLoad () {
         this.secret.active = false;
         this.gameOver = false;
+        this.lockPhoto = true;
     },
 
 
@@ -69,6 +73,14 @@ cc.Class({
     showPhoto() {
         this.gongJuRen.getComponent("GameManager").clearCanvasR();
         this.photoL.active = true;
+        if(this.lockPhoto) {
+            let cltn = this.collection.getComponent("collection");
+            cltn.unlockFlag(5);
+            this.info.string="解锁相片：外滩的和平女神像";
+            var anim = this.info.getComponent(cc.Animation);
+            anim.play('info');
+            this.lockPhoto = false;
+        }
     },
     showArticle2() {
         this.article2.active = true;

@@ -29,7 +29,8 @@ cc.Class({
         },
         newFlag: {
             default: null,
-            type: cc.Node,
+            
+            ype: cc.Node,
         },
         // 新旗帜元素
         new: {
@@ -44,6 +45,8 @@ cc.Class({
 
         hint: cc.Node,
 
+        collection: cc.Node,
+        info: cc.Label,
     },
 
 
@@ -53,10 +56,20 @@ cc.Class({
     onLoad() {
         this.btnCount = 0;
         this.starCount = 0;
+        this.lockOldFlag = true;
+        this.lockNewFlag = true;
     },
 
     btnOld: function () {
         this.gongJuRen.getComponent("GameManager").clearCanvasM();
+        if(this.lockOldFlag) {
+            let cltn = this.collection.getComponent("collection");
+            cltn.unlockFlag(1);
+            this.info.string="解锁旗帜：民国国旗";
+            var anim = this.info.getComponent(cc.Animation);
+            anim.play('info');
+            this.lockOldFlag = false;
+        }
         if (this.btnCount <= 3) {
             if(this.btnCount==0){
                 let tools = this.tools.getComponent("Tools");
@@ -110,8 +123,15 @@ cc.Class({
                 this.starsCheck = false;
             }
         }
-        if(this.starsCheck) {
-            this.hint.active = true;
+        if(this.starsCheck && this.lockNewFlag) {
+            let cltn = this.collection.getComponent("collection");
+            cltn.unlockFlag(2);
+            console.log('1');
+            this.info.string="解锁旗帜：五星红旗";
+            var anim = this.info.getComponent(cc.Animation);
+            anim.play('info');
+            this.lockNewFlag = false;
+            // this.hint.active = true;
         }
     },
     

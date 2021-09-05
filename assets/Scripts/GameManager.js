@@ -4,7 +4,8 @@ cc.Class({
     extends: cc.Component,
 
     properties: {
-        canvas: cc.Node,
+        mainGame: cc.Node,
+        collection: cc.Node,
 
         // rooms
         outDoor: cc.Node,
@@ -42,12 +43,10 @@ cc.Class({
         if (height > width) {
             cc.view.setFrameSize(height, width)
         }
+
         this.intoDoor();
-
-        cc.director.preloadScene("collection", function () {
-            console.log("Next scene collection preloaded");
-        });
-
+        // cavas children.active初始的修改
+        // btn下，children.active = false
     },
 
 
@@ -133,7 +132,9 @@ cc.Class({
     },
 
     btnCollection: function () {
-        cc.director.loadScene("collection");
+        this.collection.active= true;
+        // cc.director.loadScene("collection");
+        this.mainGame.active = false;
     },
 
     start() {

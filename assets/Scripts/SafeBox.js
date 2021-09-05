@@ -41,8 +41,10 @@ cc.Class({
         audioDing: {
             default: null,
             type: cc.AudioClip,
-        }
+        },
 
+        collection: cc.Node,
+        info: cc.Label,
     },
 
     // LIFE-CYCLE CALLBACKS:
@@ -51,6 +53,7 @@ cc.Class({
         this.safeBoxL.active = false;
         this.star.active = false;
         this.codeJunk();
+        this.lockCode = true;
     },
 
     btn: function () {
@@ -126,6 +129,15 @@ cc.Class({
         // 动画播放停止时执行
         anim.on('finished', this.onFinished, this);
         this.canGet = true;
+
+        if(this.lockCode) {
+            let cltn = this.collection.getComponent("collection");
+            cltn.unlockFlag(4);
+            this.info.string="解锁密码：1921";
+            var anim = this.info.getComponent(cc.Animation);
+            anim.play('info');
+            this.lockCode = false;
+        }
     },
     onFinished () {
         // 销毁节点

@@ -18,11 +18,15 @@ cc.Class({
 
         audio_get: cc.AudioClip,
 
+        collection: cc.Node,
+        info: cc.Label,
     },
 
     // LIFE-CYCLE CALLBACKS:
 
-    // onLoad () {},
+    onLoad () {
+        this.lockIncident = true;
+    },
 
     start () {
 
@@ -39,11 +43,26 @@ cc.Class({
 
     btn1: function () {
         this.article3.active = true;
+        this.unlockIncident();
     },
 
     btn2: function () {
         this.article6.active = true;
+        this.unlockIncident();
     },
+
+    // 解锁事件
+    unlockIncident: function () {
+        if(this.lockIncident) {
+            let cltn = this.collection.getComponent("collection");
+            cltn.unlockFlag(7);
+            this.info.string="解锁事件：上海解放";
+            var anim = this.info.getComponent(cc.Animation);
+            anim.play('info');
+            this.lockIncident = false;
+        }
+    },
+
 
     btn3: function () {
         this.sudoku.active = true;

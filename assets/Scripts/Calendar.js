@@ -22,18 +22,30 @@ cc.Class({
             default: null,
             type: cc.AudioClip,
         },
+
+        collection: cc.Node,
+        info: cc.Label,
     },
 
     // LIFE-CYCLE CALLBACKS:
 
     onLoad () {
         this.calendarL.active = false;
+        this.lockTime = true;
     },
 
     // 日历大图
     btn: function() {
         this.gongJuRen.getComponent("GameManager").clearCanvasM();
         this.calendarL.active = true;
+        if(this.lockTime) {
+            let cltn = this.collection.getComponent("collection");
+            cltn.unlockFlag(6);
+            this.info.string="解锁时间：1949年5月27日";
+            var anim = this.info.getComponent(cc.Animation);
+            anim.play('info');
+            this.lockTime = false;
+        }
     },
 
     // 撕日历
@@ -55,6 +67,7 @@ cc.Class({
         // this.schedule(function() {
         //     this.star.active = true;
         // }, 0.4);
+
     },
 
     start () {
