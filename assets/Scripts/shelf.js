@@ -17,7 +17,7 @@ cc.Class({
         secret: cc.Node,
         booksGame: cc.Node,
         books: {
-            default:[],
+            default: [],
             type: cc.Node,
         },
         booksContainer: cc.Node,
@@ -47,23 +47,23 @@ cc.Class({
 
     // LIFE-CYCLE CALLBACKS:
 
-    onLoad () {
+    onLoad() {
         this.secret.active = false;
         this.gameOver = false;
         this.lockPhoto = true;
     },
 
 
-    showBooks () {
+    showBooks() {
         this.gongJuRen.getComponent("GameManager").clearCanvasR();
         this.booksGame.active = true;
-        if(!this.gameOver) {
+        if (!this.gameOver) {
             this.bookGameOn();
         } else {
             this.bookGameOff();
         }
     },
-    openSecret () {
+    openSecret() {
         this.booksGame.active = false;
         var pic = this.shelf2.getComponent(cc.Sprite)
         pic.spriteFrame = this.shelf2_pic;
@@ -73,10 +73,10 @@ cc.Class({
     showPhoto() {
         this.gongJuRen.getComponent("GameManager").clearCanvasR();
         this.photoL.active = true;
-        if(this.lockPhoto) {
+        if (this.lockPhoto) {
             let cltn = this.collection.getComponent("collection");
             cltn.unlockFlag(5);
-            this.info.string="解锁相片：外滩的和平女神像";
+            this.info.string = "解锁相片：外滩的和平女神像";
             var anim = this.info.getComponent(cc.Animation);
             anim.play('info');
             this.lockPhoto = false;
@@ -92,7 +92,7 @@ cc.Class({
     },
 
     getKey: function () {
-        cc.audioEngine.play(this.audio_ding,false,0.8);
+        cc.audioEngine.play(this.audio_ding, false, 0.8);
         let tools = this.tools.getComponent("Tools");
         tools.key.active = true;
         this.key.destroy();
@@ -101,63 +101,76 @@ cc.Class({
     open: function () {
         this.gongJuRen.getComponent("GameManager").clearCanvasR();
         this.shelf3_open.active = true;
-        cc.audioEngine.play(this.audio_knock,false,1);
+        cc.audioEngine.play(this.audio_knock, false, 1);
     },
     close: function () {
         this.gongJuRen.getComponent("GameManager").clearCanvasR();
         this.shelf3_open.active = false;
-        cc.audioEngine.play(this.audio_knock,false,1);
+        cc.audioEngine.play(this.audio_knock, false, 1);
     },
     getWood: function () {
         let tools = this.tools.getComponent("Tools");
         tools.wood.active = true;
         this.wood.destroy();
-        cc.audioEngine.play(this.audio_wood,false,0.7);
+        cc.audioEngine.play(this.audio_wood, false, 0.7);
     },
 
     bookGameOn() {
         // 更新一遍书架
         let layout = this.booksContainer.getComponent(cc.Layout);
         layout.enabled = true;
-        for (let i=0; i<7; i++) {
+        for (let i = 0; i < 7; i++) {
             this.books[i].setSiblingIndex(i);
         }
-        for ( let k=0; k<7;k++) {
-            ((k)=>{
-                this.books[k].on('touchstart', function(event){
+        // 书本容器区间计算的阈值
+        const threshold = 10
+        // 书本容器 [最左侧书本坐标x + 阈值, 最右侧书本坐标x + 书本本身宽度 + 阈值]
+        const minBoundOriginX = this.books[0].x + threshold
+        const maxBoundOriginX = this.books[this.books.length - 1].x + this.books[this.books.length - 1].width + threshold
+        for (let k = 0; k < 7; k++) {
+            ((k) => {
+                this.books[k].on('touchstart', function (event) {
                     this.indexOrigin = this.books[k].getSiblingIndex();
                     this.xOrigin = this.books[k].x;
-                },this); 
+                }, this);
 
-                this.books[k].on('touchmove', function (event){
+                this.books[k].on('touchmove', function (event) {
                     let layout = this.booksContainer.getComponent(cc.Layout);
                     layout.enabled = false;
-                    let delta = event.getDelta();   //移动书本
-                    this.books[k].x = this.books[k].x + delta.x; 
+                    let delta = event.getDelta();
+                    // 移动后的 X 坐标
+                    const movedX = this.books[k].x + delta.x;
+                    // 如果移动的书本超出了书本容器的最大和最小坐标，放弃移动操作
+                    const isBeyondTheBound = movedX <= minBoundOriginX || movedX >= maxBoundOriginX
+                    if (isBeyondTheBound) {
+                        return;
+                    }
+                    // 没超出边界
+                    this.books[k].x = movedX
                     this.books[k].setSiblingIndex(8);   //让书本位于最前方
-                },this);
+                }, this);
 
                 this.books[k].on('touchend', function (event) {
-                     cc.audioEngine.play(this.audio_book, false, 0.4);
-                    let com = ((this.books[k].x-this.xOrigin) > 0 );    //判断书本位移方向
+                    cc.audioEngine.play(this.audio_book, false, 0.4);
+                    let com = ((this.books[k].x - this.xOrigin) > 0);    //判断书本位移方向
                     this.books[k].setSiblingIndex(this.indexOrigin);
                     let indexNew = this.books[k].getSiblingIndex();
                     // books是当前排好的书本顺序;this.books是一开始的标号
                     let books = this.booksContainer.children;
-                    if(com){
+                    if (com) {
                         // 从左向右作比较，被比较书目的索引号为i
-                        for(let i = 0; i<7; i++){
-                            let det = this.books[k].x - books[i].x+50;
-                            if (det >=0 ) {
+                        for (let i = 0; i < 7; i++) {
+                            let det = this.books[k].x - books[i].x + 50;
+                            if (det >= 0) {
                                 indexNew = i;
                             }
                         }
                     } else {
                         // 从右向左作比较，被比较书目的索引号为6-i
-                        for(let i = 0; i<7; i++){
-                            let det = books[6-i].x - this.books[k].x + 50;
-                            if (det >=0 ) {
-                                indexNew = 6-i;
+                        for (let i = 0; i < 7; i++) {
+                            let det = books[6 - i].x - this.books[k].x + 50;
+                            if (det >= 0) {
+                                indexNew = 6 - i;
                             }
                         }
                     }
@@ -166,29 +179,29 @@ cc.Class({
                     let layout = this.booksContainer.getComponent(cc.Layout);
                     layout.enabled = true;
                     // check Finished
-                    let cAnswer = [2,6,3,1,5,0,4];
+                    let cAnswer = [2, 6, 3, 1, 5, 0, 4];
                     let answer = [];
-                    for(let i = 0; i<7; i++){
+                    for (let i = 0; i < 7; i++) {
                         let index = this.books[i].getSiblingIndex();
                         answer.push(index);
                     }
-                    if( answer.join() == cAnswer.join()) {
+                    if (answer.join() == cAnswer.join()) {
                         this.gameOver = true;
-                        cc.audioEngine.play(this.audio_openSecret,false,0.5);
-                        this.scheduleOnce(function(){ 
+                        cc.audioEngine.play(this.audio_openSecret, false, 0.5);
+                        this.scheduleOnce(function () {
                             this.openSecret();
-                        },0.5);
+                        }, 0.5);
                     }
-                },this);                 
+                }, this);
             })(k)
-        } 
+        }
     },
     bookGameOff() {
-        for ( let k=0; k<7;k++) {
+        for (let k = 0; k < 7; k++) {
             this.books[k].targetOff(this);;
-        } 
+        }
     },
-    start () {
+    start() {
 
     },
 
