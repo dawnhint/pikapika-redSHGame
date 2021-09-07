@@ -11,7 +11,6 @@ cc.Class({
     properties: {
         mainGame: cc.Node,
         collection: cc.Node,
-        articleL: cc.Node,
 
         menu: {
             default: [],
@@ -28,6 +27,7 @@ cc.Class({
 
         article: cc.Node,
         flag: cc.Node,
+        more: cc.Node,
 
         // 成就区域
         lockedPic: {
@@ -58,17 +58,17 @@ cc.Class({
         this.collection.active = false;
         this.mainGame.active = true;
         // cc.director.loadScene("main");
-        // cc.director.loadScene("main");
         // cc.director.runScene("main");
     },
 
-    // 成就flag/文章article/历史history 版块切换
+    // 成就flag/文章article/更多more 版块切换
     initFlag () {
         this.iconDefault();
         let iconFlag = this.menu[0].getComponent(cc.Sprite);
         iconFlag.spriteFrame = this.menuOn[0];
         this.article.active = false;
         this.flag.active = true;
+        this.more.active = false;
     },
     initArticle () {
         this.iconDefault();
@@ -76,13 +76,16 @@ cc.Class({
         iconArticle.spriteFrame = this.menuOn[1];
         this.flag.active = false;
         this.article.active = true;
+        this.more.active = false;
     },
-    initHistory () {
+    initMore () {
         this.iconDefault();
-        let iconHistory = this.menu[2].getComponent(cc.Sprite);
-        iconHistory.spriteFrame = this.menuOn[2];
+        let iconMore = this.menu[2].getComponent(cc.Sprite);
+        iconMore.spriteFrame = this.menuOn[2];
+        this.article.active = false;
+        this.flag.active = false;
+        this.more.active = true;
     },
-
     iconDefault () {
         for( let i=0; i<3; i++){
             let icon = this.menu[i].getComponent(cc.Sprite)
@@ -91,9 +94,25 @@ cc.Class({
     },
 
     // 文章articles版块
-    btnArticle: function () {
-        this.articleL.active = true;
+    btnArticle1: function () {
+        cc.sys.openURL('https://img.library.sh.cn/gmwx/firstimg/ske1rd5y5fi1pc28.jpg');
     },
+    btnArticle2: function () {
+        cc.sys.openURL('https://img.library.sh.cn/gmwx/firstimg/4yw95zpf4vvp6bil.jpg');
+    },
+    btnArticle3: function () {
+        cc.sys.openURL('https://img.library.sh.cn/gmwx/firstimg/74f568rtb6tyuxtc.jpg');
+    },
+    btnArticle5: function () {
+        cc.sys.openURL('https://img.library.sh.cn/gmwx/firstimg/1wbwjt3veuwz7gu1.jpg');
+    },
+    btnArticle6: function () {
+        cc.sys.openURL('https://img.library.sh.cn/gmwx/firstimg/5ngpsk2r6if44rb1.jpg');
+    },
+    btnArticle7: function () {
+        cc.sys.openURL('https://img.library.sh.cn/gmwx/firstimg/r1mj4fvhbokr89bu.jpg');
+    },
+    
     btnAticleBack: function () {
         this.articleL.active = false;
     },
@@ -117,5 +136,9 @@ cc.Class({
         this.unlockFlag(1);
     },
 
+    // More更多版块
+    btnMore: function() {
+        cc.director.loadScene("begin");
+    },
     // update (dt) {},
 });

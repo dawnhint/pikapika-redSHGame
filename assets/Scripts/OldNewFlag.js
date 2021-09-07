@@ -47,6 +47,8 @@ cc.Class({
 
         collection: cc.Node,
         info: cc.Label,
+        finishScene: cc.Node,
+
     },
 
 
@@ -131,7 +133,7 @@ cc.Class({
             var anim = this.info.getComponent(cc.Animation);
             anim.play('info');
             this.lockNewFlag = false;
-            // this.hint.active = true;
+            this.playFinish();
         }
     },
     
@@ -143,6 +145,19 @@ cc.Class({
            tools.redFlag.destroy();
            cc.audioEngine.play(this.audioDing, false, 0.7);  
         }
+    },
+
+    playFinish: function () {
+        this.finishScene.active = true;
+        this.finishScene.opacity = 0;
+        cc.tween(this.finishScene)
+        .to(1.5, { opacity: 255 } )
+        .start()
+    },
+
+    btnFinish: function () {
+        this.gongJuRen.getComponent("GameManager").btnCollection();
+        this.finishScene.active = false;
     },
 
     start() {

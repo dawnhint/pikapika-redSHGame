@@ -29,7 +29,8 @@ cc.Class({
         doorAudio: {
             default: null,
             type: cc.AudioClip,
-        }
+        },
+
     },
 
     // LIFE-CYCLE CALLBACKS:

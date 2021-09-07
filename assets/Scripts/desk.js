@@ -13,6 +13,7 @@ cc.Class({
         btn_desk: cc.Node,
         btn_star: cc.Node,
         btn_scissors: cc.Node,
+        article5L: cc.Node,
 
         tools: cc.Node,
         gongJuRen: {
@@ -31,11 +32,18 @@ cc.Class({
     onLoad () {
         this.star.active = false;
         this.btn_star.active = false;
+        this.article5L.active = false;
+
     },
 
     btn: function() {
         this.gongJuRen.getComponent("GameManager").clearCanvasL();
         this.deskL.active = true;
+        this.article5L.active = false;
+    },
+
+    showArticle5: function () {
+        this.article5L.active = true;
     },
 
     getScissors: function () {
