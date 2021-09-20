@@ -33,13 +33,15 @@ cc.Class({
         tools: {
             default: null,
             type: cc.Node,
-        }
-        
+        },
+
+        audioCut: cc.AudioClip,
+
     },
 
     // LIFE-CYCLE CALLBACKS:
 
-    onLoad () {
+    onLoad() {
         this.cutting = false;
         this.node.on('touchend', this.onTouch, this);
     },
@@ -51,39 +53,21 @@ cc.Class({
         this.bigPic.active = true;
     },
 
-    // 触发：获得剪刀
-    testOnTouch: function(){
-        let test = this.tools.getComponent("Tools");
-        test.getScissors();
-    },
-
     // 剪下旗帜，获得旗帜
-    // 现在分两步，后期改成动画
-    getRedFlag1: function() {
+    getRedFlag: function () {
         let tool = this.tools.getComponent("Tools");
-        if(this.cutting) {
-            this.getRedFlag2();
-            return;
-        }
-        if(tool.hldSc){
-            var pic = this.bigPic.getComponent(cc.Sprite);
-            pic.spriteFrame = this.bigPicCutting;
-            this.cutting = true;
-            return;
-        }
-    },
-    getRedFlag2:function() {
-            // 替换大图
-            var pic= this.bigPic.getComponent(cc.Sprite)
-            pic.spriteFrame = this.bigPicAfter;
-            // 添加道具红旗，删除道具剪刀
+        if (tool.hldSc) {
+            let anim = this.bigPic.getComponent(cc.Animation);
+            anim.play('cutFlag');
+            cc.audioEngine.play(this.audioCut,false,0.7);
             let test = this.tools.getComponent("Tools");
-            test.getRedFlag();
+            test.redFlag.active = true;
             test.unHoldAll();
-            test.removeScissors();
+            test.scissors.destroy();
             // 替换小图
-            var sAfter = this.flagNode.getComponent(cc.Sprite)
+            let sAfter = this.flagNode.getComponent(cc.Sprite)
             sAfter.spriteFrame = this.flagAfter;
+        }
     },
 
 });
